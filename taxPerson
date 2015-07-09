@@ -1,0 +1,43 @@
+package taxPerson;
+
+public class taxPerson {
+	
+	public static void main(String[] args) {
+		
+		Check next = new Check(System.in);
+		String luxuryStatusInput = ""; 
+		double initialPrice = -1.0;
+		 
+		
+		do{
+		System.out.println("Price of item");
+		initialPrice = parseCostInput(next.nextLine());
+		}while(initialPrice == -1.0);
+		
+		do {
+			System.out.println("yes if its luxury item");
+			luxuryStatusInput = next.nextLine();
+		}while(!(luxuryStatusInput.matches("yes") || luxuryStatusInput.matches("no")));
+		
+		Item itemToPrice = new Item();
+		itemToPrice.setIsLuxury(parseLuxuryStatus(luxuryStatusInput));
+		itemToPrice.setCost(initialPrice);
+		System.out.println("Item cost is: " + itemToPrice.calculateCostAfterTax());
+	}
+	
+	public static double parseCostInput(String costInput){
+		
+		if(costInput.matches("\\d+\\.\\d") || costInput.matches("\\d+\\.\\d\\d") || costInput.matches("\\d+")){
+			return Double.parseDouble(costInput);
+		}
+		return -1.0;
+	}
+	
+	public static Boolean parseLuxuryStatus(String isLuxuryInput){
+		
+		if(isLuxuryInput.matches("yes")){
+			return true;
+		}
+		return false;
+	}
+}
